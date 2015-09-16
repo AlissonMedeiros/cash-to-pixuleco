@@ -8,8 +8,9 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
+import org.medeiros.persistence.QTax;
 import org.medeiros.persistence.Tax;
-import org.medeiros.repository.TaxRepository;
+import org.medeiros.repository.DefaultRepository;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -21,7 +22,7 @@ public class TaxServiceTest {
 	@InjectMocks
 	private TaxService service;
 	@Mock
-	public TaxRepository repository;
+	public DefaultRepository<Tax> repository;
 
 	@Before
 	public void init() {
@@ -52,19 +53,32 @@ public class TaxServiceTest {
 
 	@Test
 	public void deleteTax() {
+		Mockito.when(repository.findById(TAX_ID, Tax.class)).thenReturn(createSimpleTax());
+
 		service.delete(TAX_ID);
-		Mockito.verify(repository).delete(TAX_ID);
+
+		Mockito.verify(repository).delete(createSimpleTax());
 	}
 
 	@Test
 	public void listAllTaks() {
-		Mockito.when(repository.all()).thenReturn(getList());
+		Mockito.when(repository.all(QTax.tax)).thenReturn(getList());
 		List<Tax> list = service.all();
 
-		Mockito.verify(repository).all();
+		Mockito.verify(repository).all(QTax.tax);
 
 		MatcherAssert.assertThat(list, Matchers.hasSize(1));
 		MatcherAssert.assertThat(list, Matchers.contains(createSimpleTax()));
+	}
+
+	@Test
+	public void find() {
+		Mockito.when(repository.findById(TAX_ID, Tax.class)).thenReturn(createSimpleTax());
+
+		Tax tax = service.find(TAX_ID);
+
+		Mockito.verify(repository).findById(TAX_ID, Tax.class);
+		MatcherAssert.assertThat(tax, Matchers.equalTo(createSimpleTax()));
 	}
 
 	private List<Tax> getList() {

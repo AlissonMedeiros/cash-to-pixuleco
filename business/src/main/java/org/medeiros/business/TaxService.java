@@ -1,33 +1,23 @@
 package org.medeiros.business;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
+import org.medeiros.persistence.QTax;
 import org.medeiros.persistence.Tax;
-import org.medeiros.repository.TaxRepository;
+
+import com.querydsl.core.types.dsl.EntityPathBase;
 
 @Stateless
-public class TaxService {
+public class TaxService extends AbstractService<Tax> {
 
-	@Inject
-	public TaxRepository repository;
-
-	public Tax create(Tax tax) {
-		return repository.save(tax);
+	@Override
+	protected EntityPathBase<Tax> getEntityPathBase() {
+		return QTax.tax;
 	}
 
-	public List<Tax> all() {
-		return repository.all();
-	}
-
-	public Tax edit(Tax tax) {
-		return repository.edit(tax);
-	}
-
-	public void delete(Long id) {
-		repository.delete(id);
+	@Override
+	protected Class<Tax> getEntityClass() {
+		return Tax.class;
 	}
 
 }
