@@ -7,7 +7,6 @@
 		<artifactId>cash-to-pixuleco</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-
 	<artifactId>persistence</artifactId>
 
 	<dependencies>
@@ -19,8 +18,11 @@
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 	</dependencies>
-
 	<!-- https://www.credera.com/blog/technology-insights/java/can-querydsl-part-1-enhance-simplify-existing-spring-data-jpa-repositories/ 
 		- https://jaxenter.com/top-3-jpa-productivity-boosters-for-java-ee-developers-querydsl-116135.html -->
 	<build>
@@ -54,6 +56,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>

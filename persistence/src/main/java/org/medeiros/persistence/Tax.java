@@ -1,21 +1,44 @@
 package org.medeiros.persistence;
 
-import static javax.persistence.GenerationType.SEQUENCE;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class Tax {
+@Builder
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+public class Tax implements Serializable {
 
-	// http://docs.oracle.com/javaee/7/api/javax/persistence/GeneratedValue.html
 	@Id
-	@GeneratedValue(strategy = SEQUENCE, generator = "TAX_SEQ")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long id;
 	public String name;
-	@OneToOne
-	public Audit audit;
+	public BigDecimal percentage;
+	public Date creation;
+	public Date lastUpdate;
+
+	@PrePersist
+	public void prePersist() {
+		creation = new Date();
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		lastUpdate = new Date();
+	}
 
 }
