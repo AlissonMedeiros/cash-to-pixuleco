@@ -10,7 +10,7 @@
 
 	<properties>
 		<version.javaee>7.0</version.javaee>
-		<querydsl.version>3.6.7</querydsl.version>
+		<querydsl.version>4.0.4</querydsl.version>
 	</properties>
 
 
@@ -22,15 +22,31 @@
 				<version>${version.javaee}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.mysema.querydsl</groupId>
+				<groupId>com.querydsl</groupId>
 				<artifactId>querydsl-core</artifactId>
 				<version>${querydsl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-jpa</artifactId>
+				<version>${querydsl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.querydsl</groupId>
+				<artifactId>querydsl-apt</artifactId>
+				<version>${querydsl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.medeiros</groupId>
+				<artifactId>persistence</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<modules>
 		<module>persistence</module>
+		<module>repository</module>
 	</modules>
 
 	<build>
