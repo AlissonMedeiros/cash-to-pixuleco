@@ -14,35 +14,36 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.medeiros.business.ProductTypeService;
-import org.medeiros.persistence.ProductType;
+import org.medeiros.business.TaxService;
+import org.medeiros.business.exception.AppException;
+import org.medeiros.persistence.Tax;
 
-@Path("products/types")
+@Path("taxes")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class ProductTypeResource {
+public class SaleResource {
 
 	@Inject
-	private ProductTypeService service;
+	private TaxService service;
 
 	@POST
-	public ProductType create(ProductType type) {
-		return service.create(type);
+	public Tax create(@NotNull Tax tax) throws AppException {
+		return service.create(tax);
 	}
 
 	@PUT
-	public ProductType edit(ProductType type) {
-		return service.edit(type);
+	public Tax edit(@NotNull Tax tax) throws AppException {
+		return service.edit(tax);
 	}
 
 	@GET
-	public List<ProductType> all() {
+	public List<Tax> all() {
 		return service.all();
 	}
 
 	@GET
 	@Path("{id}")
-	public ProductType find(@NotNull @PathParam("id") Long id) {
+	public Tax find(@NotNull @PathParam("id") Long id) {
 		return service.find(id);
 	}
 
