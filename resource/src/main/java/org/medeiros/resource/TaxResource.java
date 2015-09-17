@@ -14,35 +14,37 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.medeiros.business.TaxService;
-import org.medeiros.persistence.Tax;
+import org.medeiros.business.SaleService;
+import org.medeiros.business.exception.AppException;
+import org.medeiros.persistence.sale.Sale;
+import org.medeiros.persistence.save.dto.SaleListDTO;
 
-@Path("taxes")
+@Path("sales")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class TaxResource {
 
 	@Inject
-	private TaxService service;
+	private SaleService service;
 
 	@POST
-	public Tax create(Tax tax) {
-		return service.create(tax);
+	public Sale create(@NotNull Sale sale) throws AppException {
+		return service.create(sale);
 	}
 
 	@PUT
-	public Tax edit(Tax tax) {
-		return service.edit(tax);
+	public Sale edit(@NotNull Sale sale) throws AppException {
+		return service.edit(sale);
 	}
 
 	@GET
-	public List<Tax> all() {
-		return service.all();
+	public List<SaleListDTO> all() {
+		return service.list();
 	}
 
 	@GET
 	@Path("{id}")
-	public Tax find(@NotNull @PathParam("id") Long id) {
+	public Sale find(@NotNull @PathParam("id") Long id) {
 		return service.find(id);
 	}
 

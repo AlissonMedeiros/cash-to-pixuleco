@@ -4,10 +4,13 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
+import javax.validation.Validator;
+
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
+import org.medeiros.business.exception.AppException;
 import org.medeiros.persistence.QTax;
 import org.medeiros.persistence.Tax;
 import org.medeiros.repository.DefaultRepository;
@@ -22,7 +25,9 @@ public class TaxServiceTest {
 	@InjectMocks
 	private TaxService service;
 	@Mock
-	public DefaultRepository<Tax> repository;
+	private DefaultRepository<Tax> repository;
+	@Mock
+	private Validator validator;
 
 	@Before
 	public void init() {
@@ -30,7 +35,7 @@ public class TaxServiceTest {
 	}
 
 	@Test
-	public void createTax() {
+	public void createTax() throws AppException {
 		Tax tax = Tax.builder().name("IPI").percentage(BigDecimal.TEN).build();
 		Mockito.when(repository.save(tax)).thenReturn(createSimpleTax());
 
@@ -41,7 +46,7 @@ public class TaxServiceTest {
 	}
 
 	@Test
-	public void editTax() {
+	public void editTax() throws AppException {
 		Tax tax = Tax.builder().id(TAX_ID).name("IPI").percentage(BigDecimal.TEN).build();
 		Mockito.when(repository.edit(tax)).thenReturn(createSimpleTax());
 
@@ -62,10 +67,10 @@ public class TaxServiceTest {
 
 	@Test
 	public void listAllTaks() {
-		Mockito.when(repository.all(QTax.tax)).thenReturn(getList());
+		Mockito.when(repository.all(QTax.tax, QTax.tax)).thenReturn(getList());
 		List<Tax> list = service.all();
 
-		Mockito.verify(repository).all(QTax.tax);
+		Mockito.verify(repository).all(QTax.tax, QTax.tax);
 
 		MatcherAssert.assertThat(list, Matchers.hasSize(1));
 		MatcherAssert.assertThat(list, Matchers.contains(createSimpleTax()));

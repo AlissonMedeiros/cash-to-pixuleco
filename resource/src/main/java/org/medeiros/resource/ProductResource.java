@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.medeiros.business.ProductService;
+import org.medeiros.business.exception.AppException;
 import org.medeiros.persistence.Product;
 
 @Path("products")
@@ -26,12 +27,12 @@ public class ProductResource {
 	private ProductService service;
 
 	@POST
-	public Product create(Product product) {
+	public Product create(@NotNull Product product) throws AppException {
 		return service.create(product);
 	}
 
 	@PUT
-	public Product edit(Product product) {
+	public Product edit(@NotNull Product product) throws AppException {
 		return service.edit(product);
 	}
 

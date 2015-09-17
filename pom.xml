@@ -84,10 +84,24 @@
 							<ignoredDependencies>
 								<ignoredDependency>org.projectlombok:lombok:jar:1.16.6</ignoredDependency>
 								<ignoredDependency>org.hamcrest:hamcrest-core:jar:1.3</ignoredDependency>
+								<ignoredDependency>org.medeiros:persistence:jar:0.0.1-SNAPSHOT</ignoredDependency>
 							</ignoredDependencies>
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>4.0.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

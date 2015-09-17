@@ -1,23 +1,29 @@
 package org.medeiros.business;
 
+import static org.medeiros.persistence.QProduct.product;
+
 import javax.ejb.Stateless;
 
 import org.medeiros.persistence.Product;
-import org.medeiros.persistence.QProduct;
 
+import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.EntityPathBase;
 
 @Stateless
 public class ProductService extends AbstractService<Product> {
 
-	@Override
 	protected EntityPathBase<Product> getEntityPathBase() {
-		return QProduct.product;
+		return product;
 	}
 
-	@Override
 	protected Class<Product> getEntityClass() {
 		return Product.class;
+	}
+
+	protected Expression<Product> getSelect() {
+		return Projections.constructor(Product.class, product.id, product.name, product.tax.id, product.tax.name,
+				product.tax.category, product.tax.percentage);
 	}
 
 }
