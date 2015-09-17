@@ -10,4 +10,4 @@ install:
   mvn test
 
 after_success:
-  - coveralls
+   - mvn clean -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID cobertura:cobertura coveralls:report
