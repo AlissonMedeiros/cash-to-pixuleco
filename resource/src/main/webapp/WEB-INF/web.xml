@@ -6,10 +6,10 @@
 
 	<display-name>Job Challenge</display-name>
 	<welcome-file-list>
-		<welcome-file>/index.html</welcome-file>
+		<welcome-file>/assets/index.html</welcome-file>
 	</welcome-file-list>
 	<servlet-mapping>
 		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/v1/*</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -15,7 +15,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 @Stateless
 public class DefaultRepository<T> {
 
-	@PersistenceContext(name = "PostgresDS")
+	@PersistenceContext(name = "ExampleDS")
 	private EntityManager entityManager;
 
 	public T findById(Long id, Class<T> entityClass) {
@@ -36,11 +36,15 @@ public class DefaultRepository<T> {
 	}
 
 	public List<T> list(EntityPathBase<T> from, Predicate predicate, Expression<T> select) {
-		return new JPAQuery<T>(entityManager, HQLTemplates.DEFAULT).select(select).from(from).where(predicate).fetch();
+		return createQuery().select(select).from(from).where(predicate).fetch();
 	}
 
 	public List<T> all(EntityPathBase<T> entityPathBase, Expression<T> select) {
-		return new JPAQuery<T>(entityManager, HQLTemplates.DEFAULT).select(select).from(entityPathBase).fetch();
+		return createQuery().select(select).from(entityPathBase).fetch();
+	}
+
+	protected JPAQuery<T> createQuery() {
+		return new JPAQuery<T>(entityManager, HQLTemplates.DEFAULT);
 	}
 
 }

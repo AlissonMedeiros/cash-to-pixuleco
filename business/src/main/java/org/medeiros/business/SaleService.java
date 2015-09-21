@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.medeiros.business.exception.AppException;
 import org.medeiros.persistence.sale.Sale;
 import org.medeiros.persistence.sale.SaleItem;
 import org.medeiros.persistence.save.dto.SaleListDTO;
@@ -17,6 +18,7 @@ import org.medeiros.repository.DefaultRepository;
 import com.google.common.collect.Lists;
 import com.querydsl.core.types.ConstructorExpression;
 import com.querydsl.core.types.Expression;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.EntityPathBase;
 
@@ -26,7 +28,7 @@ public class SaleService extends AbstractService<Sale> {
 	protected DefaultRepository<SaleItem> saleItemRepository;
 
 	@Override
-	public Sale find(Long id) {
+	public Sale find(Long id) throws AppException {
 		Sale entity = super.find(id);
 		entity.items = saleItemRepository.list(saleItem, saleItem.sale.id.eq(id), getSaleItemConstructorExpression());
 		return entity;
@@ -34,7 +36,7 @@ public class SaleService extends AbstractService<Sale> {
 
 	public List<SaleListDTO> list() {
 		List<SaleListDTO> list = Lists.newArrayList();
-		List<Sale> sales = all();
+		List<Sale> sales = list(null);
 		sales.stream().forEach((sale) -> {
 			list.add(createSaleList(sale));
 		});
@@ -58,7 +60,7 @@ public class SaleService extends AbstractService<Sale> {
 		return SaleTotalDTO.builder().taxTotal(tax).total(total).build();
 	}
 
-	private ConstructorExpression<SaleItem> getSaleItemConstructorExpression() {
+	protected ConstructorExpression<SaleItem> getSaleItemConstructorExpression() {
 		return Projections.constructor(SaleItem.class, saleItem.id, saleItem.value, saleItem.quantity, saleItem.sale.id,
 				saleItem.product.id, saleItem.product.name, saleItem.product.tax.id, saleItem.product.tax.percentage,
 				saleItem.product.tax.name, saleItem.product.tax.category);
@@ -74,5 +76,10 @@ public class SaleService extends AbstractService<Sale> {
 
 	protected Expression<Sale> getSelect() {
 		return sale;
+	}
+
+	@Override
+	protected Predicate getFilter(String schearch) {
+		return null;
 	}
 }
