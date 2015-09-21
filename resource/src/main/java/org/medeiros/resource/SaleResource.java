@@ -22,7 +22,7 @@ import org.medeiros.persistence.save.dto.SaleListDTO;
 @Path("sales")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class TaxResource {
+public class SaleResource {
 
 	@Inject
 	private SaleService service;
@@ -38,19 +38,19 @@ public class TaxResource {
 	}
 
 	@GET
-	public List<SaleListDTO> all() {
+	public List<SaleListDTO> list() {
 		return service.list();
 	}
 
 	@GET
 	@Path("{id}")
-	public Sale find(@NotNull @PathParam("id") Long id) {
+	public Sale find(@NotNull @PathParam("id") Long id) throws AppException {
 		return service.find(id);
 	}
 
 	@DELETE
 	@Path("{id}")
-	public void delete(@NotNull @PathParam("id") Long id) {
+	public void delete(@NotNull @PathParam("id") Long id) throws AppException {
 		service.delete(id);
 	}
 

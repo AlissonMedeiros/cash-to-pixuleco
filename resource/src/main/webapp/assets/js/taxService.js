@@ -15,7 +15,7 @@ define(modules, function ($, globals) {
 		function list() {
 			$('#newTaxButton').on('click', loadTaxForm);
 			globals.ajax({
-				url : "resource/v1/taxes",
+				url : "v1/taxes",
 				success : onLoadList
 			});
 		}
@@ -42,7 +42,7 @@ define(modules, function ($, globals) {
 
 		function onClickSubmitTax(type){
 			globals.ajax({
-				url : 'resource/v1/taxes',
+				url : 'v1/taxes',
 				type : type,
 				data : $('#taxForm'),
 			 	success: load
@@ -71,7 +71,7 @@ define(modules, function ($, globals) {
 
 		function loadById(itemId){
 			globals.ajax({
-				url : "resource/v1/taxes/"+itemId,
+				url : "v1/taxes/"+itemId,
 				success : loadTax
 			})
 		}
@@ -92,7 +92,7 @@ define(modules, function ($, globals) {
 
 		function deleteTax(){
 			globals.ajax({
-				url : 'resource/v1/taxes/' + $('#idTax').val(),
+				url : 'v1/taxes/' + $('#idTax').val(),
 				type : 'DELETE',
 			 	success: load
 			})

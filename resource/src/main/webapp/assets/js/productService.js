@@ -18,7 +18,7 @@ define(modules, function ($, globals) {
 		function list() {
 			$('#newProductButton').on('click', loadNewProductForm);
 			globals.ajax({
-				url : 'resource/v1/products',
+				url : 'v1/products',
 				type :"GET",
 			 	success: createTable
 			});
@@ -35,7 +35,7 @@ define(modules, function ($, globals) {
 
 		function initAutocomplete() {
 			$('#taxName').autocomplete({
-			    serviceUrl: '/resource/v1/taxes',
+			    serviceUrl: 'v1/taxes',
 			    paramName: 'search',
 			    transformResult: function(response) {
 			        return {
@@ -56,7 +56,7 @@ define(modules, function ($, globals) {
 
 		function saveProduct() {
 			globals.ajax({
-				url : 'resource/v1/products',
+				url : 'v1/products',
 				type : 'POST',
 				data : $('#productForm'),
 			 	success: load

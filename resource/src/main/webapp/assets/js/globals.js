@@ -1,12 +1,11 @@
 define(['jQuery'], function($){
 	var globals = {};
-	var backendUrl = '/';
 	globals.ajax = ajax; 
 	globals.loadPage = loadPage; 
 
 	function ajax(params){
 		var request = {
-			url : backendUrl + params.url,
+			url :  params.url,
 			type :params.type,
 			contentType : "application/json; charset=utf-8",
 		 	success: params.success,
@@ -18,7 +17,7 @@ define(['jQuery'], function($){
 	};
 
 	function loadPage(page, callBack){
-		$("#content").load("/resource/assets/html/"+page,callBack);
+		$("#content").load("assets/html/"+page,callBack);
 	}
 
 	function onError(result) {
@@ -36,7 +35,6 @@ define(['jQuery'], function($){
 		$('.ignore', form).remove();
 	    var formArray = form.serializeArray();
 	    $.each(formArray, function(el) {
-	    	console.log(el);
 	        if (o[this.name] !== undefined) {
 	            if (!o[this.name].push) {
 	                o[this.name] = [o[this.name]];

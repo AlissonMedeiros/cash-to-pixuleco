@@ -17,7 +17,7 @@ define(modules, function ($, globals) {
 		function list() {
 			$('#newSaleButton').on('click', loadNewSaleForm);
 			globals.ajax({
-				url : 'resource/v1/sales',
+				url : 'v1/sales',
 				type :"GET",
 			 	success: createTable
 			});
@@ -80,7 +80,7 @@ define(modules, function ($, globals) {
 		var currentProduct;
 		function initAutocomplete() {
 			$('#productName').autocomplete({
-			    serviceUrl: '/resource/v1/products',
+			    serviceUrl: 'v1/products',
 			    paramName: 'search',
 			    transformResult: function(response) {
 			        return {
@@ -98,7 +98,6 @@ define(modules, function ($, globals) {
 		}
 
 		function saveSale(){
-			debugger;
 			var items = [];
 			$('#saleProductsList > tr').each(function() {
 				if(this.id == 'rowTemplate')
@@ -111,7 +110,7 @@ define(modules, function ($, globals) {
 		     });
 			
 			globals.ajax({
-				url : 'resource/v1/sales',
+				url : 'v1/sales',
 				type : 'POST',
 				data : JSON.stringify({items}),
 			 	success: load
